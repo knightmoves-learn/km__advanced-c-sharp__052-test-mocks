@@ -2,8 +2,8 @@ using System.Reflection;
 
 public class LessonTests
 {
-    // private static string Lesson52FilePath = @"../../../Lesson52Tests/RateLimitingService.Tests.cs";
-    // private string Lesson52Content = File.ReadAllText(Lesson52FilePath);
+    private static string Lesson52FilePath = @"../../../Lesson52Tests/RateLimitingService.Tests.cs";
+    private string Lesson52Content = File.ReadAllText(Lesson52FilePath);
     private readonly string[] _requiredTestMethods =
     {
         "ShouldReturnTrueWhenItIsWeekend",
@@ -35,5 +35,12 @@ public class LessonTests
                 Assert.Fail($"Test {requiredMethodName} failed: {ex.InnerException?.Message ?? ex.Message}");
             }
         }
+    }
+
+    [Fact]
+    public void Lesson52ShouldUseMockDateTimeWrapperAndNotStubInTests()
+    {
+        Assert.Contains("Mock<IDateTimeWrapper>", Lesson52Content);
+        Assert.DoesNotContain("StubDateTimeWrapper", Lesson52Content);
     }
 }
